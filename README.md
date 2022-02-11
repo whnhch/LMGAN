@@ -1,4 +1,4 @@
-# LMGAN : Linguistically Informed Semi-Supervised GAN with Mixup
+# LMGAN : Linguistically Informed Semi-Supervised GAN with Mixup for text classification
 
 ### Run model
 Following command will run the model.
