@@ -2,9 +2,11 @@
 
 ### Run model
 Following command will run the model.
-'''
-$bash run_lmgan.sh
-'''
+<pre>
+<code>
+$ bash run_lmgan.sh
+</code>
+</pre>
 
 ### Requirements
 The reuqired packages and versions are described in reuqirements.txt
