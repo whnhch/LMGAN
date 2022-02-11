@@ -7,6 +7,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 import pandas as pd
+from collections import OrderedDict
 
 
 import sys, os
@@ -538,6 +539,7 @@ def train(transformer_config, l_train_dataloader,u_train_dataloader, g_l_train_d
                             loss.append(total_loss[i])
 
                         accuracy, precision, recall, f1_micro, f1_macro = metric(y_pred, y_true)
+                        print('[{:}/1000]'.format(step))
                         print('loss : {:}'.format(sum(loss) / len(loss)))
                         cur_loss =sum(loss) / len(loss)
                         print(
@@ -572,9 +574,21 @@ def evaluate(transformer_config, chkpt, device, test_dataloader, label_list,\
     discriminator = Discriminator(x_size, d_hidden_size, d_dkp, num_labels)
     transformer = Transformer(transformer_config)
         
-        
-    discriminator.load_state_dict(chkpt['dis_state_dict'])
-    transformer.load_state_dict(chkpt['trs_state_dict'])
+    try:
+        discriminator.load_state_dict(chkpt['dis_state_dict'])
+        transformer.load_state_dict(chkpt['trs_state_dict'])
+    except:
+        new_dis_state_dict = OrderedDict()
+        for k, v in chkpt['dis_state_dict'].items():
+            name = k[7:] # remove module.
+            new_dis_state_dict[name] = v
+
+        new_trs_state_dict = OrderedDict()
+        for k, v in chkpt['trs_state_dict'].items():
+            name = k[7:] # remove module.
+            new_trs_state_dict[name] = v
+        discriminator.load_state_dict(new_dis_state_dict)
+        transformer.load_state_dict(new_trs_state_dict)
 
     predictions = []
     true_labels = []
