@@ -1,5 +1,8 @@
 # LMGAN : Linguistically Informed Semi-Supervised GAN with Mixup for text classification
 
+# anonymously opened at
+https://anonymous.4open.science/r/LMGAN-8107/README.md
+
 ### Run model
 Following command will run the model.
 <pre>
